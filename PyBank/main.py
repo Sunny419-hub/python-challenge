@@ -4,6 +4,20 @@ import csv
 #Function that returns the arithmetic average of the changes in "Profit/Losses"
 def average(changes_acum,total_mon):
     return (changes_acum) / (total_mon-1)
+
+#Function that returns the maximum value
+def increase(increase,new):
+  if increase > new:
+    return increase
+  else:
+    return new
+#Function that returns the minimun value
+def decrease(decrease,new):
+  if decrease < new:
+    return decrease
+  else:
+    return new
+    
 # Read in a .csv file
 csv_file = os.path.join("Resources", "budget_data.csv")
 #Improved Reading using CSV module
@@ -21,7 +35,9 @@ with open("budget_data.csv") as csvfile:
     new_pfls = 0
     changes_act = 0
     changes_acum = 0
-    
+    increase2 = 0
+    new = 0
+    decrease2 = 0
     # Read each row of data after the header
     for row in csvreader:
         # Calculating the net total amount of "Profit/Losses" over the entire period
@@ -34,8 +50,12 @@ with open("budget_data.csv") as csvfile:
             changes_act = int (new_pfls) - int (last_pfls)
             changes_acum = int (changes_acum) + int (changes_act)
         last_pfls = int (row[1])
-
-    #print(average(total,total_mon))
+        new = changes_act 
+        increase2 = increase(int (increase2),int (new))
+        decrease2 = decrease(int (decrease2),int (new))
+    
     #print(total)
     #print(total_mon)
-    print(average(changes_acum,total_mon-1))
+    #print(average(changes_acum,total_mon-1))
+    print(increase2)
+    print(min2)
