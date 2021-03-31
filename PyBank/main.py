@@ -1,9 +1,9 @@
 # Import the necessary dependencies
 import os
 import csv
-def average(total,total_mon):
-    return total / total_mon
-
+#Function that returns the arithmetic average of the changes in "Profit/Losses"
+def average(changes_acum,total_mon):
+    return (changes_acum) / (total_mon-1)
 # Read in a .csv file
 csv_file = os.path.join("Resources", "budget_data.csv")
 #Improved Reading using CSV module
@@ -24,17 +24,18 @@ with open("budget_data.csv") as csvfile:
     
     # Read each row of data after the header
     for row in csvreader:
+        # Calculating the net total amount of "Profit/Losses" over the entire period
         total = total + int(row[1])
+        # Calculating total number of months included in the dataset
         total_mon = total_mon + 1
+        # Calculating the changes in "Profit/Losses" over the entire period   
         if (last_pfls)!= 0:
             new_pfls = int (row[1])
             changes_act = int (new_pfls) - int (last_pfls)
-            print(changes_act)
             changes_acum = int (changes_acum) + int (changes_act)
-            last_pfls = int (row[1])
-    
-    print (changes_acum)
+        last_pfls = int (row[1])
+
     #print(average(total,total_mon))
     #print(total)
     #print(total_mon)
-    #print(average(total / total_mon))
+    print(average(changes_acum,total_mon-1))
