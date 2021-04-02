@@ -1,27 +1,29 @@
 # Import the necessary dependencies
 import os
 import csv
+import sys
+
 #Function that returns the arithmetic average of the changes in "Profit/Losses"
 def average(changes_acum,total_mon):
-    return (changes_acum) / (total_mon-1)
+    return int (changes_acum) / (total_mon-1)
 
 #Function that returns the maximum value
-def increase(increase,new):
+def increase(increase,new,date2,date_increase2):
   if increase > new:
-    return increase
+    return increase,date_increase2
   else:
-    return new
+    return new,date2
 #Function that returns the minimun value
-def decrease(decrease,new):
+def decrease(decrease,new,date2,date_decrease2):
   if decrease < new:
-    return decrease
+    return decrease, date_decrease2
   else:
-    return new
+    return new, date2
     
 # Read in a .csv file
 csv_file = os.path.join("Resources", "budget_data.csv")
 #Improved Reading using CSV module
-with open("budget_data.csv") as csvfile:
+with open(csv_file) as csvfile:
     # CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter=',')
     print(csvreader)
@@ -38,6 +40,9 @@ with open("budget_data.csv") as csvfile:
     increase2 = 0
     new = 0
     decrease2 = 0
+    date_increase2 = ''
+    date_decrease2 = ''
+
     # Read each row of data after the header
     for row in csvreader:
         # Calculating the net total amount of "Profit/Losses" over the entire period
@@ -50,12 +55,38 @@ with open("budget_data.csv") as csvfile:
             changes_act = int (new_pfls) - int (last_pfls)
             changes_acum = int (changes_acum) + int (changes_act)
         last_pfls = int (row[1])
+        # Calculating the Greatest Increase and Decrease in Profits   
         new = changes_act 
-        increase2 = increase(int (increase2),int (new))
-        decrease2 = decrease(int (decrease2),int (new))
+        increase2,date_increase2 = increase(int (increase2),int (new),row[0],date_increase2)
+        decrease2,date_decrease2 = decrease(int (decrease2),int (new),row[0],date_decrease2)
+        
     
-    #print(total)
+    print(f"Financial Analysis")
+    print(f"----------------------------")
     #print(total_mon)
-    #print(average(changes_acum,total_mon-1))
-    print(increase2)
-    print(min2)
+    print(f"Total Months: {total_mon}")
+    #print(total)
+    print(f"Total: ${total}")
+    #print(average(changes_acum,total_mon))
+    print(f"Average Change: ${round(average(changes_acum,(total_mon)),2)}")
+    #print(increase2) #print(date_increase2)
+    print(f"Greatest Increase in Profits: {date_increase2} ${increase2}")
+    #print(decrease2) #print(date_decrease2)
+    print(f"Greatest Decrease in Profits: {date_decrease2} ${decrease2}")
+    
+# Specify the file to write to
+output_path = os.path.join("c:\\Users\\ssses\\Desktop\\python-ch\\python-challenge\\PyBank","new.txt")
+# Open the file using "write" mode. Specify the variable to hold the contents
+sys.stdout = open(output_path, 'w')
+print(f"Financial Analysis")
+print(f"----------------------------")
+#print(total_mon)
+print(f"Total Months: {total_mon}")
+#print(total)
+print(f"Total: ${total}")
+#print(average(changes_acum,total_mon))
+print(f"Average Change: ${round(average(changes_acum,(total_mon)),2)}")
+#print(increase2) #print(date_increase2)
+print(f"Greatest Increase in Profits: {date_increase2} ${increase2}")
+#print(decrease2) #print(date_decrease2)
+print(f"Greatest Decrease in Profits: {date_decrease2} ${decrease2}")
