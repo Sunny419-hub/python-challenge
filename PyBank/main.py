@@ -1,8 +1,6 @@
 # Import the necessary dependencies
 import os
 import csv
-import sys
-
 #Function that returns the arithmetic average of the changes in "Profit/Losses"
 def average(changes_acum,total_mon):
     return int (changes_acum) / (total_mon-1)
@@ -26,10 +24,8 @@ csv_file = os.path.join("Resources", "budget_data.csv")
 with open(csv_file) as csvfile:
     # CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter=',')
-    print(csvreader)
     # Read the header row first (skip this step if there is now header)
     csv_header = next(csvreader)
-    print(f"CSV Header: {csv_header}")
     # Assign your values to variables with descriptive names
     total = 0
     total_mon = 0
@@ -59,34 +55,25 @@ with open(csv_file) as csvfile:
         new = changes_act 
         increase2,date_increase2 = increase(int (increase2),int (new),row[0],date_increase2)
         decrease2,date_decrease2 = decrease(int (decrease2),int (new),row[0],date_decrease2)
-        
-    
-    print(f"Financial Analysis")
-    print(f"----------------------------")
-    #print(total_mon)
-    print(f"Total Months: {total_mon}")
-    #print(total)
-    print(f"Total: ${total}")
-    #print(average(changes_acum,total_mon))
-    print(f"Average Change: ${round(average(changes_acum,(total_mon)),2)}")
-    #print(increase2) #print(date_increase2)
-    print(f"Greatest Increase in Profits: {date_increase2} ${increase2}")
-    #print(decrease2) #print(date_decrease2)
-    print(f"Greatest Decrease in Profits: {date_decrease2} ${decrease2}")
-    
+           
 # Specify the file to write to
 output_path = os.path.join("c:\\Users\\ssses\\Desktop\\python-ch\\python-challenge\\PyBank","new.txt")
 # Open the file using "write" mode. Specify the variable to hold the contents
-sys.stdout = open(output_path, 'w')
-print(f"Financial Analysis")
-print(f"----------------------------")
-#print(total_mon)
-print(f"Total Months: {total_mon}")
-#print(total)
-print(f"Total: ${total}")
-#print(average(changes_acum,total_mon))
-print(f"Average Change: ${round(average(changes_acum,(total_mon)),2)}")
-#print(increase2) #print(date_increase2)
-print(f"Greatest Increase in Profits: {date_increase2} ${increase2}")
-#print(decrease2) #print(date_decrease2)
-print(f"Greatest Decrease in Profits: {date_decrease2} ${decrease2}")
+with open(output_path, 'w', newline='') as txtfile:
+  txtwriter = csv.writer(txtfile, delimiter=',')
+  txtwriter.writerow(["Financial Analysis"])
+  txtwriter.writerow(["----------------------------"])
+  #print(total_mon)
+  txtwriter.writerow([f"Total Months: {total_mon}"])
+  #print(total)
+  txtwriter.writerow([f"Total: ${total}"])
+  #print(average(changes_acum,total_mon))
+  txtwriter.writerow([f"Average Change: ${round(average(changes_acum,(total_mon)),2)}"])
+  #print(increase2) #print(date_increase2)
+  txtwriter.writerow([f"Greatest Increase in Profits: {date_increase2} ${increase2}"])
+  #print(decrease2) #print(date_decrease2)
+  txtwriter.writerow([f"Greatest Decrease in Profits: {date_decrease2} ${decrease2}"])
+
+with open(output_path, 'r') as txtfile:
+  lines = txtfile.read()
+  print(lines)
