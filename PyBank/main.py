@@ -57,7 +57,8 @@ with open(csv_file) as csvfile:
         decrease2,date_decrease2 = decrease(int (decrease2),int (new),row[0],date_decrease2)
            
 # Specify the file to write to
-output_path = os.path.join("c:\\Users\\ssses\\Desktop\\python-ch\\python-challenge\\PyBank","new.txt")
+#output_path = os.path.join("c:\\Users\\ssses\\Desktop\\python-ch\\python-challenge\\PyBank","new.txt")
+output_path = os.path.join("c:\\Users\\ssses\\Desktop\\python-ch\\python-challenge\\PyBank\\analysis","new.txt")
 # Open the file using "write" mode. Specify the variable to hold the contents
 with open(output_path, 'w', newline='') as txtfile:
   txtwriter = csv.writer(txtfile, delimiter=',')
