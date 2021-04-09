@@ -1,11 +1,6 @@
-Election Results
+Paragraph Analysis
 -------------------------
-Total Votes: 3521001
--------------------------
-Khan: 63.000% (2218231)
-Correy: 20.000% (704200)
-Li: 14.000% (492940)
-O'Tooley: 3.000% (105630)
--------------------------
-Winner: Khan
--------------------------
+Approximate Word Count: 130
+Approximate Sentence Count: 6
+Average Letter Count: 6.4
+Average Sentence Length: 26
