@@ -2,13 +2,16 @@
 import os
 import csv
 import re
-
+from statistics import mean
 # Read in a .csv file
 csv_file = os.path.join("C:\\Users\\ssses\\Desktop\\python-ch\\python-challenge\\PyParagraph\\Resources", "paragraph_1.txt")
 
 with open(csv_file, 'r') as txtfile:
   lines = txtfile.read()
-  print(lines)
+
+
+print(f'Paragraph Analysis')
+print(f'-----------------')
 
 #Approximate Word Count
 word_list = lines.split()
@@ -32,13 +35,17 @@ print(f'Average Letter Count: {average_letter_count}')
 #Average Sentence Length
 
 sentences = re.split("(?<=[.!?]) +", lines)
-words_in_sentence = 0
+words_in_sentence = []
 
-#average_sentence_count = '{0:.1f}'.format(sentence_lenght/sentence_count)
-print(sentences)
 for sentence in sentences :
-    words_in_sentence += len(sentence.split())
+    words_in_sentence.append(len(sentence.split()))
     
-average_sentence_count =
-    print(words_in_sentence)
-#print(average_sentence_count)
+print(f'Average Sentence Length: {(mean(words_in_sentence))}')
+
+
+
+
+with open(output_file, 'r') as txtfile:
+        lines = txtfile.read()
+        print(lines)
+
